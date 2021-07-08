@@ -10,6 +10,7 @@ import rich
 from rich.progress import track
 import spacy
 
+from config import params
 from attention import LuongAttention
 
 class Decoder(tf.keras.Model):
