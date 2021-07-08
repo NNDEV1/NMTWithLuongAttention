@@ -14,6 +14,7 @@ from model.encoder import Encoder
 from model.decoder import Decoder
 from config import params
 from preprocess import *
+from dataset import enc_seq, teach_force_seq, y
 
 def loss(y, ypred, sce):
 
@@ -68,3 +69,35 @@ def restore_checkpoint(params, encoder, decoder):
     ckpt.restore(tf.train.latest_checkpoint(checkpoint_dir))
     
 
+encoder = Encoder(params)
+decoder = Decoder(params)
+
+def train():
+
+    sce = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True, reduction='none')
+    
+    start = time.time()
+    avg_loss = []
+
+    for e in track(range(0, params.epochs)):
+
+        losses = []
+
+        st = time.time()
+
+        for enc_seq_batch, teach_force_seq_batch, y_batch in zip(enc_seq, teach_force_seq, y):
+
+            grads, loss = train_step(params, enc_seq_batch, teach_force_seq_batch, y_batch, encoder, decoder, sce)
+
+            losses.append(loss.numpy())
+
+        avg_loss.append(np.mean(losses))
+
+        print(f'EPOCH - {e+1} ---- LOSS - {np.mean(losses)} ---- TIME - {time.time()- st}')
+
+    save_checkpoints(params, encoder, decoder)
+    print(f'total time taken: {time.time()-start}')
+
+    return grads, avg_loss
+
+grads, avg_loss = train()
