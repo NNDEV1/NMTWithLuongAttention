@@ -10,6 +10,7 @@ import rich
 from rich.progress import track
 import spacy
 
+from config import params
 
 #Preprocessing Text
 class preprocess_text():
