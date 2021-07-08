@@ -10,6 +10,8 @@ import rich
 from rich.progress import track
 import spacy
 
+from config import params
+
 
 class LuongAttention(tf.keras.layers.Layer):
     def __init__(self, params):
