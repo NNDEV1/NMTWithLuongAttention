@@ -10,8 +10,6 @@ import rich
 from rich.progress import track
 import spacy
 
-from config import params
-
 class Encoder(tf.keras.Model):
     def __init__(self, params):
         super(Encoder, self).__init__()
