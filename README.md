@@ -83,7 +83,7 @@ As you can see results weren't very good.
 * *Make sure correct packages are installed(below)*
 * *Run train.py*
 * *Run predict.py*
-* *or for easier overall usage run MachineTranslationLuong.ipynb.ipynb*
+* *or for easier overall usage run MachineTranslationLuong.ipynb*
 
 ### Prerequisites
 
